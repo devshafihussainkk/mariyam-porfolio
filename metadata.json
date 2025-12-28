@@ -1,0 +1,8 @@
+{
+  "name": "Mariyam KV Portfolio",
+  "description": "A professional portfolio for Mariyam KV, an HR Specialist, featuring resume details, competencies, and an AI-powered recruitment assistant.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
