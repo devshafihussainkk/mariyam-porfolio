@@ -2,13 +2,23 @@
 import { GoogleGenAI } from "@google/genai";
 
 export class GeminiService {
-  private ai: GoogleGenAI;
+  private ai: GoogleGenAI | null = null;
 
   constructor() {
-    this.ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+    const apiKey = process.env.API_KEY;
+    if (apiKey) {
+      this.ai = new GoogleGenAI({ apiKey });
+    }
   }
 
   async askAboutMariyam(question: string): Promise<string> {
+    if (!this.ai) {
+      // Lazy initialization attempt if key was added later
+      const apiKey = process.env.API_KEY;
+      if (!apiKey) return "API Key is missing. Please configure your environment.";
+      this.ai = new GoogleGenAI({ apiKey });
+    }
+
     const systemInstruction = `
       You are an AI assistant for Mariyam KV's professional portfolio. 
       Mariyam KV is an MBA graduate specializing in Hospital Management & HR. 
